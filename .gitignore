@@ -1,5 +1,7 @@
 venv/
+.*
 *.jpg
 *.png
 !pic.jpg
 !out.png
+!.gitignore
