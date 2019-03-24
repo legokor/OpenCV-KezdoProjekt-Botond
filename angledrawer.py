@@ -32,6 +32,8 @@ def draw(img):
 
     im2, contours, hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     prev = [[[0, 0]]]
+    if len(contours) == -1:
+        return img
     for c in contours:
         shape = cv2.approxPolyDP(c, 7, True)
         if len(shape) < 2:
@@ -49,3 +51,16 @@ def draw(img):
             cv2.putText(img, '%(num)d' % {"num": np.round(ang)}, tuple(o), cv2.FONT_HERSHEY_PLAIN, 1.2, (150,50,0))
         prev = shape
     return img
+
+
+if __name__ == "__main__":
+    wname = "Angle tester"
+    window = cv2.namedWindow(wname)
+
+    img = cv2.imread("pic.jpg")
+    img = draw(img)
+
+    cv2.imshow(wname, img)
+    cv2.waitKey()
+
+    cv2.destroyWindow(wname)
